@@ -5623,7 +5623,8 @@ var rules = [
     ]
 ];
 
-var lastRule = '';
+var lastRule = proxy;
+var lastHost = '';
 
 function FindProxyForURL(url, host) {
     for (var i = 0; i < rules.length; i++) {
@@ -5631,18 +5632,21 @@ function FindProxyForURL(url, host) {
         if (ret != undefined)
             return ret;
     }
-    return 'DIRECT';
+    return lastRule;
 }
 
 function testHost(host, index) {
     for (var i = 0; i < rules[index].length; i++) {
         for (var j = 0; j < rules[index][i].length; j++) {
-            lastRule = rules[index][i][j];
-            if (host == lastRule || host.endsWith('.' + lastRule))
-                return i % 2 == 0 ? 'DIRECT' : proxy;
+            if (host == lastHost) {
+                return lastRule;
+            } else if (host.endsWith('.' + lastHost)) {
+                lastHost = rules[index][i][j];
+                lastRule = i % 2 == 0 ? proxy : 'DIRECT';
+                return lastRule;
+            }
         }
     }
-    lastRule = '';
 }
 
 if (!String.prototype.endsWith) {
