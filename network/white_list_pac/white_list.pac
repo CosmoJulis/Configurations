@@ -70876,24 +70876,12 @@ function FindProxyForURL(url, host) {
     } else {
         lastHost = host;
     }
-
-    function isDomain(domain) {
-        var host_length, domain_length;
-        return ((domain[0] === '.')
-            ?
-            (host === domain.slice(1) || 
-            ((host_length = host.length) >= (domain_length = domain.length) && 
-            host.slice(host_length - domain_length) === domain))
-            : 
-            (host === domain));
-    }
     
-    
-    function rule_filter(callback) {
+    function rule_filter() {
         for (var j = 0; j < RULES.length; j++) {
             var rules=RULES[j]
             for (var i = 0; i < rules.length; i++) {
-               if (callback(rules[i]) === true) {
+               if (host.indexOf(rules[i]) >= 0) {
                    return true;
                }
             }
@@ -70902,7 +70890,7 @@ function FindProxyForURL(url, host) {
     }
 
     // skip local hosts
-    if (rule_filter(isDomain)) {
+    if (rule_filter()) {
         lastRule = DIRECT;
     } else {
         lastRule = PROXY;
@@ -70910,8 +70898,3 @@ function FindProxyForURL(url, host) {
     return lastRule;
 }
 
-
-
-
-
-console.log(FindProxyForURL("https://www.tianyancha.com", "www.tianyancha.com"))
