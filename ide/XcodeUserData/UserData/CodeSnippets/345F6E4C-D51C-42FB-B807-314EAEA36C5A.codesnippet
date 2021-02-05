@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xnextresponder</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>    UIResponder *responder = self;
+    while (responder) {
+        responder = responder.nextResponder;
+        NSLog(@"%@", responder);
+        if ([responder isKindOfClass:[UIViewController class]]) {
+            break;
+        }
+    }
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>345F6E4C-D51C-42FB-B807-314EAEA36C5A</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Next Responder</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Next Responder</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

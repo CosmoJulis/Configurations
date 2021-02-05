@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xscreen</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>    CGSize screenSize = CGSizeMake([UIScreen mainScreen].bounds.size.width * 2, [UIScreen mainScreen].bounds.size.height * 2);
+    UIGraphicsBeginImageContextWithOptions(screenSize, YES, 0);     //设置截屏大小
+    [[self.view layer] renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    CGImageRef imageRef = viewImage.CGImage;
+    CGRect rect = CGRectMake(0, 0, screenSize.width, screenSize.height);//这里可以设置想要截图的区域
+    CGImageRef imageRefRect =CGImageCreateWithImageInRect(imageRef, rect);
+    UIImage *sendImage = [[UIImage alloc] initWithCGImage:imageRefRect];
+    NSData *imageViewData = UIImagePNGRepresentation(sendImage);
+    //保存图片到照片库
+//    UIImageWriteToSavedPhotosAlbum(sendImage, nil, nil, nil);
+    NSString * imagePath = [NSString stringWithFormat:@"/Users/sekey1991/Desktop/%@.png", [NSProcessInfo processInfo].globallyUniqueString];
+    [imageViewData writeToFile:imagePath atomically:YES];//保存照片到沙盒目录</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>782ECC69-B6C3-47D7-9851-EDAA024CD06E</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Screen Shot</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Screen Shot</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

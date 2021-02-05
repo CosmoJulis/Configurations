@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>xMemory</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>#import &lt;sys/sysctl.h&gt;
+#import &lt;mach/mach.h&gt;
+
+- (double)usedMemory {
+    task_basic_info_data_t taskInfo;
+    mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
+    kern_return_t kernReturn = task_info(mach_task_self(),
+                                         TASK_BASIC_INFO, (task_info_t)&amp;taskInfo, &amp;infoCount);
+    if(kernReturn != KERN_SUCCESS) {
+        return NSNotFound;
+    }
+    return taskInfo.resident_size / 1024.0 / 1024.0;
+}
+
+
+- (double)availableMemory
+
+{
+    vm_statistics_data_t vmStats;
+    mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
+    kern_return_t kernReturn
+    = host_statistics(mach_host_self(),
+                      HOST_VM_INFO,
+                      (host_info_t)&amp;vmStats,
+                      &amp;infoCount);
+    if(kernReturn != KERN_SUCCESS) {
+        return NSNotFound;
+    }
+    return ((vm_page_size * vmStats.free_count) / 1024.0) / 1024.0;
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E0E5B17F-5175-4502-8E0A-FA1D7E2A6D39</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Device Memory</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Device Memory</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
